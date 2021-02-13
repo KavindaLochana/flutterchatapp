@@ -67,13 +67,13 @@ class _LoginState extends State<Login> {
             .setData({
           "id": firebaseUser.uid,
           "name": firebaseUser.displayName,
-          "profile_pic": firebaseUser.photoURL,
+          "profile_pic": firebaseUser.photoUrl,
           "created_at": DateTime.now().millisecondsSinceEpoch,
         });
 
         sharedPreferences.setString("id", firebaseUser.uid);
         sharedPreferences.setString("name", firebaseUser.displayName);
-        sharedPreferences.setString("profile_pic", firebaseUser.photoURL);
+        sharedPreferences.setString("profile_pic", firebaseUser.photoUrl);
 
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => Home()));
