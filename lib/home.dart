@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'chatage.dart';
+import 'chatpage.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection('users').snapshots(),
+          stream: FirebaseFirestore.instance.collection('users').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
               return ListView.builder(

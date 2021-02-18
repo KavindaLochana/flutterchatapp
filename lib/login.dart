@@ -53,7 +53,7 @@ class _LoginState extends State<Login> {
         (await firebaseAuth.signInWithCredential(credentials)).user;
 
     if (firebaseUser != null) {
-      final result = (await Firestore.instance
+      final result = (await FirebaseFirestore.instance
               .collection('users')
               .where('id', isEqualTo: firebaseUser.uid)
               .getDocuments())
@@ -61,19 +61,19 @@ class _LoginState extends State<Login> {
 
       if (result.length == 0) {
         ///new user
-        Firestore.instance
+        FirebaseFirestore.instance
             .collection('users')
             .document(firebaseUser.uid)
             .setData({
           "id": firebaseUser.uid,
           "name": firebaseUser.displayName,
-          "profile_pic": firebaseUser.photoUrl,
+          "profile_pic": firebaseUser.photoURL,
           "created_at": DateTime.now().millisecondsSinceEpoch,
         });
 
         sharedPreferences.setString("id", firebaseUser.uid);
         sharedPreferences.setString("name", firebaseUser.displayName);
-        sharedPreferences.setString("profile_pic", firebaseUser.photoUrl);
+        sharedPreferences.setString("profile_pic", firebaseUser.photoURL);
 
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => Home()));

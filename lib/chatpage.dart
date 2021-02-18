@@ -46,7 +46,7 @@ class _ChatPageState extends State<ChatPage> {
         title: Text('Chat page!'),
       ),
       body: StreamBuilder(
-        stream: Firestore.instance
+        stream: FirebaseFirestore.instance
             .collection('messages')
             .document(groupChatId)
             .collection(groupChatId)
@@ -101,13 +101,13 @@ class _ChatPageState extends State<ChatPage> {
 
     if (msg.isNotEmpty) {
       print('thisiscalled $msg');
-      var ref = Firestore.instance
+      var ref = FirebaseFirestore.instance
           .collection('messages')
           .document(groupChatId)
           .collection(groupChatId)
           .document(DateTime.now().millisecondsSinceEpoch.toString());
 
-      Firestore.instance.runTransaction((transaction) async {
+      FirebaseFirestore.instance.runTransaction((transaction) async {
         await transaction.set(ref, {
           "senderId": userID,
           "anotherUserId": widget.docs['id'],
